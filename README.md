@@ -1,7 +1,7 @@
 # robotics_mini_project
 Mini project in roboticas &amp; AI. Working with ROS, gazebo, openCV (python).
 
-# install:
+# Install
 make sure you have ~/catkin_ws and all the usual ric reqs
 clone https://github.com/robotican/ric into catkin_ws/src/ric
 download this folder into catkin_ws/src/project
@@ -9,7 +9,7 @@ make sure you have in .bashrc : source ~/catkin_ws/devel/setup.bash
 run: catkin_make 
 run: rospack list, make sure you see "ric" & “project”
 
-# to launch:
+# Launch
 cd ~/catkin_ws/src/project
 launch.py (or: python launch.py)
 
