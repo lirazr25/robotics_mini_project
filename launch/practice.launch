@@ -1,0 +1,50 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  <arg name="world" default="6"/>
+  <arg name="xPos" default="2.0"/>
+  <arg name="yPos" default="-3.0"/>
+  <arg name="zPos" default="0.4"/>
+  <arg name="pitch" default="0.0"/>
+  <arg name="Yaw" default="1.57"/>
+
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  
+  
+  <!-- We resume the logic in empty_world.launch by telling what world to launch. SHOULD RANDOM A WORLD! -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+   <arg name="world_name" value="$(find project)/worlds/world$(arg world).world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+  
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find project)/robots/komodo/komodo_with_elev.xacro'  ns:='init' color_name:='Grey'" />
+
+    <!-- Colors: Black, Blue, Green, Grey, Orange, Brown, Red, White -->
+    <!-- should random the first x between -6 to 6' the first y between -6 to -10 and the last Y between -->
+
+  <include file="$(find project)/launch/spawn_komodo_with_elev.launch">   
+    <arg name="name" value="komodo_1"/>
+    <arg name="color" value="White"/>
+    <arg name="front_camera" value='true'/>
+    <arg name="arm_camera" value='false'/>
+    <arg name="depth_camera" value='false'/>
+    <arg name="laser_scanner" value='true'/>
+    <arg name="urf" value='false'/>
+    <arg name="imu" value='false'/>
+    <arg name="x" value="$(arg xPos)" />
+    <arg name="y" value="$(arg yPos)" />
+    <arg name="z" value="$(arg zPos)" />
+    <arg name="R" value="0.0" />
+    <arg name="P" value="$(arg pitch)" />
+    <arg name="Y" value="$(arg Yaw)" />
+  </include>
+  
+</launch>
